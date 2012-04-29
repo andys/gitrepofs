@@ -1,18 +1,29 @@
 
-This is my first attempt at making a git FUSE filesystem.
+GitRepoFS
+=========
 
-It creates a filesystem that lets you "cd" into any tag or branch and see
-your data in there as if you had just checked out a fresh copy of that branch. 
-Forward slashes are turned into backslashes
+This is my attempt at making a git repository FUSE-based filesystem.
+
+Unlike the other similar ones out there, it lets you "cd" into any tag or
+branch and see your data in there as if you had just checked out a fresh
+copy of that branch.
+
+(In theory it could be made to support individual commits. It could also be
+made writeable somehow, perhaps using rename of the parent dir to signal a
+commit?)
+
+
+Limitations
+===========
+
+Slashes in tag/branch names are turned into backslashes in the filesystem.
 
 The directory entries have correct file size but bogus date and owner.
 
-In theory it could be made to support individual commits. It could also be
-made writeable somehow, perhaps using rename of the parent dir to signal a
-commit?
+This is currently a filthy hack, that I whipped up in a couple of hours
+using much cutting and pasting.  It needs to be cleaned up (and perhaps even
+rewritten it in C).
 
-This is currently a filthy hack that I whipped up in a couple of hours. It needs
-to be cleaned up (and perhaps even rewritten it in C).
 
 
 Dependencies
@@ -21,8 +32,8 @@ Dependencies
 rugged gem - for accessing git
 RubyFuse gem - for Fuse. 
 
-nb. It took me a while to these compiled on Ruby 1.9, so Ruby 1.8 is probably the
-best bet for now.
+nb. It took me a while to get these compiled on Ruby 1.9, so Ruby 1.8 is
+probably the best bet for now.
 
 
 
