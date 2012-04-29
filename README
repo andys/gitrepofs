@@ -1,0 +1,51 @@
+
+This is my first attempt at making a git FUSE filesystem.
+
+It creates a filesystem that lets you "cd" into any tag or branch and see
+your data in there as if you had just checked out a fresh copy of that branch. 
+Forward slashes are turned into backslashes
+
+The directory entries have correct file size but bogus date and owner.
+
+In theory it could be made to support individual commits. It could also be
+made writeable somehow, perhaps using rename of the parent dir to signal a
+commit?
+
+This is currently a filthy hack that I whipped up in a couple of hours. It needs
+to be cleaned up (and perhaps even rewritten it in C).
+
+
+Dependencies
+============
+
+rugged gem - for accessing git
+RubyFuse gem - for Fuse. 
+
+nb. It took me a while to these compiled on Ruby 1.9, so Ruby 1.8 is probably the
+best bet for now.
+
+
+
+Example Usage:
+=============
+
+
+mkdir myrepo
+usermount -u myrepo  # ensure it is unmounted from previous sessions
+ruby gitrepofs.rb /path/to/git/repo/ myrepo
+
+ls -la myrepo 
+
+dr-xr-xr-x 1 user user 4096 Apr 29 13:41 .
+drwxrwxr-x 3 user user   61 Apr 29 13:41 ..
+dr-xr-xr-x 1 user user 4096 Apr 29 13:41 heads
+dr-xr-xr-x 1 user user 4096 Apr 29 13:41 tags
+
+
+
+
+Author
+======
+
+Andrew Snow
+<andrew@modulus.org>
